@@ -76,47 +76,6 @@ Para instalar o pacote do DSGOV, siga os passos abaixo:
 =========
 =======
 =========
-== Projeto Front-End
-=========
-
-[cols="^1,^1,<1"]
-|===
-| Ferramenta | Versão | Link
-| Node
-| 14.16.0
-| https://nodejs.org/
-
-| NPM
-| 7.24.1
-| https://www.npmjs.com/
-
-| Angular
-| 12.2.0
-| https://nodejs.org/en/download/
-
-| Material Angular
-| 12.2.10
-| https://material.angular.io/
-
-| Material Icons
-| 1.9.1
-| https://fonts.google.com/icons?selected=Material+Icons
-
-| DSGOV (Design System do Governo Federal)
-| 2.2.2
-| https://dsgov.estaleiro.serpro.gov.br
-|===
-
-=========
-
-Para instalar o pacote do DSGOV, siga os passos abaixo:
-=========
-* Realize o download do pacote npm "dsgov-latest.tgz" a partir do link https://dsgov.estaleiro.serpro.gov.br/assets/design-system/assets/npm-package/dsgov-latest.tgz ;
-* Acesse a pasta do projeot angular;
-* Execute o comando "npm init -y";
-* Mova o arquivo baixado anteriormente (dsgov-latest.tgz) para a pasta do projeto angular;
-* Execute a instalação deste pacote no projeto a partir do comando "npm install dsgov-latest.tgz";
-=========
 
 Para instalar o Certificado SIDA, siga os passos abaixo:
 =========
