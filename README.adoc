@@ -91,6 +91,7 @@ Para instalar o pacote do DSGOV, siga os passos abaixo:
 .... CertificadoSIDAHomologacao.p12 (*Mar 21 11:20:19 BRT 2023*)
 .... hom-sida-pgfn-fazenda-gov-br.pem (*Apr 20 19:55:11 GMT 2023*)
 =========
+=========
 
 = POC -Spring Cloud Gateway com Gerid 6 como IDP para o cliente e a API do Falência
 
