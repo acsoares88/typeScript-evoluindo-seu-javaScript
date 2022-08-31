@@ -77,6 +77,9 @@ Para instalar o pacote do DSGOV, siga os passos abaixo:
 =======
 =========
 
+== Projeto API
+=========
+
 Para instalar o Certificado SIDA, siga os passos abaixo:
 =========
 * Realize o download do certificado "hom-sida-pgfn-fazenda-gov-br.pem" que se encontra no repositório "falencia-docs" no caminho "api/certificados-sida/";
