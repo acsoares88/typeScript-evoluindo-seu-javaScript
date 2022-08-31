@@ -77,7 +77,7 @@ Para instalar o pacote do DSGOV, siga os passos abaixo:
 =======
 =========
 
-== Projeto API
+== Projeto Front-End
 =========
 
 Para instalar o Certificado SIDA, siga os passos abaixo:
