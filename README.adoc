@@ -77,11 +77,11 @@ Para instalar o pacote do DSGOV, siga os passos abaixo:
 =======
 =========
 
-== Projeto Front-End
+== Projeto API
 =========
 
 Para instalar o Certificado SIDA, siga os passos abaixo:
-=========
+
 * Realize o download do certificado "hom-sida-pgfn-fazenda-gov-br.pem" que se encontra no repositório "falencia-docs" no caminho "api/certificados-sida/";
 * Verificar em qual pasta está o java utilizado pela sua IDE (No caso eclipse e STS fica em "Windows > Preference > Java > Installed JREs");
 * *Abrir o terminal em modo administrador*;
@@ -92,7 +92,7 @@ Para instalar o Certificado SIDA, siga os passos abaixo:
 ... *Validade dos certificados:*
 .... CertificadoSIDAHomologacao.p12 (*Mar 21 11:20:19 BRT 2023*)
 .... hom-sida-pgfn-fazenda-gov-br.pem (*Apr 20 19:55:11 GMT 2023*)
-
+=========
 
 = POC -Spring Cloud Gateway com Gerid 6 como IDP para o cliente e a API do Falência
 
