@@ -74,8 +74,6 @@ Para instalar o pacote do DSGOV, siga os passos abaixo:
 * Mova o arquivo baixado anteriormente (dsgov-latest.tgz) para a pasta do projeto angular;
 * Execute a instalação deste pacote no projeto a partir do comando "npm install dsgov-latest.tgz";
 =========
-=======
-=========
 
 == Projeto API
 =========
