@@ -92,7 +92,7 @@ Para importar o pacote do DSGOV, siga os passos abaixo:
 .... hom-sida-pgfn-fazenda-gov-br.pem (*Apr 20 19:55:11 GMT 2023*)
 =========
 
-* Para gerar o Base64 do arquivo .pem (Sera utilizada como variavel no UCD)
+* Para gerar o Base64 do arquivo .pem (Sera utilizada como variavel no UCD)*
 =========
 .. Dentro da raíz do projeto falencia, acesse a pasta certificados (que é um projeto springboot utilizando maven) e importe ele para a sua IDE;
 .. Se olhar a estrutura de pasta, veremos 3 pastas (dev / homol / prod) que são as pastas que devem conter os certificados válidos a serem aplicados em cada ambiente;
