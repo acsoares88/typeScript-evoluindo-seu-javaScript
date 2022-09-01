@@ -1,1 +1,351 @@
+= Projeto falencia
+== Builds
 
+[cols="^1,^1,<1"]
+|===
+| Branch | Versão | Status
+| https://www-scm.prevnet/pgfn/falencia/tree/desenvolvimento[desenvolvimento]
+| 1.0.0
+| image:https://www-ci.prevnet/job/PGFN/job/udrn_pgfn-falencia/job/desenvolvimento/badge/icon[Build Status, link=https://www-ci.prevnet/job/PGFN/job/udrn_pgfn-falencia/job/desenvolvimento/]
+
+| https://www-scm.prevnet/pgfn/falencia/tree/entrega[entrega]
+| 1.0.0
+| image:https://www-ci.prevnet/job/PGFN/job/udrn_pgfn-falencia/job/entrega/badge/icon[Build Status, link=https://www-ci.prevnet/job/PGFN/job/udrn_pgfn-falencia/job/entrega/]
+
+| https://www-scm.prevnet/pgfn/falencia/tree/incidente[incidente]
+| 1.0.0
+| image:https://www-ci.prevnet/job/PGFN/job/udrn_pgfn-falencia/job/incidente/badge/icon[Build Status, link=https://www-ci.prevnet/job/PGFN/job/udrn_pgfn-falencia/job/incidente/]
+
+| https://www-scm.prevnet/pgfn/falencia/tree/master[master]
+| 1.0.0
+| image:https://www-ci.prevnet/job/PGFN/job/udrn_pgfn-falencia/job/master/badge/icon[Build Status, link=https://www-ci.prevnet/job/PGFN/job/udrn_pgfn-falencia/job/master/]
+|===
+
+== Documentação de apoio
+
+* http://www-hub.prevnet/gui-entrega-continua/gui-entrega-continua.html[Guia de Integração e Entrega contínua]
+* https://www-ci.prevnet/job/PGFN/job/udrn_pgfn-falencia[Pipeline]
+* http://www-bin.prevnet[Nexus]
+* http://www-qa.prevnet[SonarQube Releases]
+* http://www-dqa.prevnet[SonarQube Checkin]
+* https://chat.dataprev.gov.br/channel/dtp-ic-ec[Dúvidas sobre Jenkins e Sonar]
+* https://chat.dataprev.gov.br/channel/dtp-git[Dúvidas sobre GIT]
+* https://asciidoctor.org/docs/#write-with-asciidoctor[Documentação Asciidoc]
+
+
+== Projeto Front-End
+=========
+
+[cols="^1,^1,<1"]
+|===
+| Ferramenta | Versão | Link
+| Node
+| 14.16.0
+| https://nodejs.org/
+
+| NPM
+| 7.24.1
+| https://www.npmjs.com/
+
+| Angular
+| 12.2.0
+| https://nodejs.org/en/download/
+
+| Material Angular
+| 12.2.10
+| https://material.angular.io/
+
+| Material Icons
+| 1.9.1
+| https://fonts.google.com/icons?selected=Material+Icons
+
+| DSGOV (Design System do Governo Federal)
+| 2.2.2
+| https://dsgov.estaleiro.serpro.gov.br
+|===
+
+=========
+
+Para importar o pacote do DSGOV, siga os passos abaixo:
+=========
+* Realize o download do pacote npm "dsgov-latest.tgz" a partir do link https://dsgov.estaleiro.serpro.gov.br/assets/design-system/assets/npm-package/dsgov-latest.tgz ;
+* Acesse a pasta do projeot angular;
+* Execute o comando "npm init -y";
+* Mova o arquivo baixado anteriormente (dsgov-latest.tgz) para a pasta do projeto angular;
+* Execute a instalação deste pacote no projeto a partir do comando "npm install dsgov-latest.tgz";
+=========
+
+== Projeto API
+=========
+
+*Para importar o Certificado SIDA em sua máquina, siga os passos abaixo:*
+=========
+* Realize o download do certificado de extensão ".pem" que se encontra no repositório "falencia-docs" no caminho "api/certificados-sida/";
+* Verificar em qual pasta está o java utilizado pela sua IDE (No caso eclipse e STS fica em "Windows > Preference > Java > Installed JREs");
+* *Abrir o terminal em modo administrador*;
+* Executar o comando: keytool -import -alias  sidacacerts -file  "<Localização do certificado .pem baixado anteriormente>" -keystore "<Localização do java utilizado pela IDE>\jre\lib\security\cacerts" -storepass changeit"
+.. Exemplo do comando acima: keytool -import -alias  sidacacerts -file  "C:\Users\work\Downloads\hom-sida-pgfn-fazenda-gov-br.pem" -keystore "C:\Program Files\Java\jdk1.8.0_201\jre\lib\security\cacerts" -storepass changeit
+* Digitar "sim" (sem aspas), para a pergunta "Confiar nesse certificado";
+* A mensagem "O certificado foi adicionado area de armazenamento de chaves" deve aparecer confirmando a operação.
+... *Validade dos certificados:*
+.... CertificadoSIDAHomologacao.p12 (*Mar 21 11:20:19 BRT 2023*)
+.... hom-sida-pgfn-fazenda-gov-br.pem (*Apr 20 19:55:11 GMT 2023*)
+=========
+
+* Para gerar o Base64 do arquivo .pem (Sera utilizada como variavel no UCD)
+=========
+.. Dentro da raíz do projeto falencia, acesse a pasta certificados (que é um projeto springboot utilizando maven) e importe ele para a sua IDE;
+.. Se olhar a estrutura de pasta, veremos 3 pastas (dev / homol / prod) que são as pastas que devem conter os certificados válidos a serem aplicados em cada ambiente;
+... *Caso seja alterada a nomenclatura dos certificados, é necessário alterar na aplicacao "certificados" também (classe "GeraCertificados");
+.. Executar a aplicação como "Spring Boot App" e no console irá sair o valor em base64 do certificado de cada ambiente.
+.. Feito isso, basta copiar o valor em base64 para a variável UCD (Componente "JAVA-CONFIG-02", propriedade "Java.certURLFiles") e solicitar a execução do componente no ambiente onde está a aplicação.
+... Reiniciar o ambiente no UCD.
+=========
+
+*Para gerar o base64 dos certificados SIDA em sua máquina, siga os passos abaixo:*
+=========
+* Realize o download dos certificados de extensão ".pem" e ".p12" que se encontra no repositório "falencia-docs" no caminho "api/certificados-sida/";
+* Para gerar o Base64 do arquivo .p12 (ele será usando tanto na máquina local quanto como variável no UCD):
+.. Abrir um terminal na pasta onde foi feito o download dos certificados e digitar o seguinte comando: "base64 -w0 <Nome_Do_Arquivo_p12>.p12" (sem <> e "").
+.. Copiar toda a cadeia de string gerada e no arquivo aplication.yml (Localizado em src/main/resources), colar como valor do parametro: "rest.sida.client_arquivo_base64".
+=========
+=========
+
+= POC -Spring Cloud Gateway com Gerid 6 como IDP para o cliente e a API do Falência
+
+
+== Documentação de apoio
+
+* https://cloud.spring.io/spring-cloud-gateway
+* https://hpgfn.gerid.dataprev.gov.br/cas/oidc/.well-known
+* https://www-git.prevnet/giuliana.bezerra/spring-cloud-microgateway
+* https://www.vincenzoracca.com/blog/framework/spring/spring-oauth/
+
+
+
+= Projeto Security Gateway (securitygateway)
+=========
+
+[cols="^1,^1,<1"]
+|===
+| Ferramenta | Versão | Link
+| Spring Boot Webflux
+| 2.1.6
+| https://spring.io/guides/gs/reactive-rest-service/    https://www.baeldung.com/spring-webflux
+
+| Spring Cloud Gateway
+| 2.1.1
+| https://spring.io/projects/spring-cloud-gateway
+
+| Spring OAuth2 Client
+| 2.1.6
+| https://spring.io/guides/tutorials/spring-boot-oauth2/
+
+| Spring Cloud Security
+| 2.1.2
+| https://spring.io/projects/spring-cloud-gateway
+
+| Lombok
+| 1.18.8
+| https://projectlombok.org/
+|===
+
+=========
+
+
+
+== Projeto Front-End e API
+=========
+
+[cols="^1,^1,<1"]
+|===
+| Ferramenta | Versão | Link
+| Node
+| 14.16.0
+| https://nodejs.org/
+
+| NPM
+| 7.24.1
+| https://www.npmjs.com/
+
+| Angular
+| 12.2.0
+| https://nodejs.org/en/download/
+
+| Material Angular
+| 12.2.10
+| https://material.angular.io/
+
+| Material Icons
+| 1.9.1
+| https://fonts.google.com/icons?selected=Material+Icons
+
+| DSGOV (Design System do Governo Federal)
+| 2.2.2
+| https://dsgov.estaleiro.serpro.gov.br
+
+| Spring Boot Webflux
+| 2.1.6
+| https://spring.io/guides/gs/reactive-rest-service/    https://www.baeldung.com/spring-webflux
+
+| Spring Security
+| 5.5.4
+| https://spring.io/projects/spring-security
+|===
+
+=========
+
+
+
+
+== Para Executar a aplicação Cliente (a partir da raiz do projeto falencia-web):
+=========
+* npm install
+* npm start
+========= 
+
+
+
+
+== Para Executar a API (a partir da raiz do projeto falencia-api):
+=========
+* mvn clean install
+* mvn spring-boot:run
+
+
+* PS.: caso seja necessário executar a partir de uma IDE, lembre-se de configurar o plugin do lombok: https://projectlombok.org/setup/eclipse
+=========
+
+
+
+
+== Para Executar o Gateway (a partir da raiz do projeto security-gateway):
+=========
+* mvn clean install
+* mvn spring-boot:run
+
+
+* PS.: caso seja necessário executar a partir de uma IDE, lembre-se de configurar o plugin do lombok: https://projectlombok.org/setup/eclipse
+=========
+
+
+
+
+== Para Testar a aplicação
+=========
+* Adicionar a seguinte entrada no arquivo "/etc/hosts":
+.. : 127.0.0.1    local.falencia
+* http://local.falencia:8080/falenciaapp
+* Autentique-se no Gerid
+* Acesso o Menu "Processo de Falência" da aplicação cliente
+* Realize a consulta a partir da tela "Consulta de Processos"
+=========
+
+
+
+
+
+== Informações sobre a API
+=========
+* Configuração de segurança do Spring: SecurityConfig.java
+.. A partir da configuração do "Http Security" em "SecurityConfig.java" é utilizado o filtro JwtAuthenticationFilter.java: responsável por obter e armazenar as credenciais do usuário
+.. No filtro JwtAuthenticationFilter, é utilizado o componente "JwtRoleProvider.java": responsável por decodificar o JWT e mapear as informações na estrutura de credenciais do Spring.
+
+* Todos os controllers estão anotados com "@ProcuradorAuthorize"
+.. Tal annotation permitirá o acesso aos recursos apenas para os usuários que possuam a autorização "falencia-poc.PROCURADOR".
+=========
+
+
+
+
+== Informações sobre o Gateway
+=========
+* O path raiz ("http://local.falencia:8080/") exibirá as informações gerais do token JWT.
+* O path "falenciaapp" ("http://local.falencia:8080/falenciaapp") irá redirecionar para a aplicação cliente, repassando o token JWT autorizado e o SESSION ID.
+
+
+
+
+* Arquivo de configuração "*application.yml*":
+.. As configurações abaixo são necessárias para a monitoração e a obtenção dos logs específicos do gateway.
+... : management.endpoint.gateway.enabled: true
+... : management.endpoint.gateway.endpoints.web.exposure.include: gateway
+
+* As referências aos serviços *OIDC fornecidos pelo GERID* estão em:
+..   : spring.security.oauth2.client.registration.gateway
+..   : spring.security.oauth2.client.provider
+* Todas as *rotas* desejadas e necessárias devem estar em :
+..   : spring.cloud.gateway.routes
+
+
+
+
+* Filtro "*AuthFilter*": 
+.. : Este filtro deve ser aplicado a todas as rotas redirecionadas para a API. Neste filtro são executadas as seguintes ações:
+...   : validação quanto a existência e formato mínimo do token JWT:
+...   : checagem de autorização (verifica se o token enviado corresponde a algum token autorizado pelo gateway);
+...   : recuperação do JWT (valor do campo ID TOKEN)
+...   : e adição deste token ao Header do request HTTP que será feito a API. +
+
+.. : o fluxo padrão OAuth2 implementado pelo Gateway utiliza o valor em "access_token". Como, aqui, é utilizado o OIDC, o valor do "access_token" corresponderá a um token opaco (sem informações).
+.. : Portanto, é necessário manipular o valor em "id_token". Para aproveitar todo o fluxo padrão do Gateway, entre as etapas de "recuperação do JWT" e "adição no header HTTP", é feito o mapeamento do valor em "id_token" para ser o valor do "access_token" de um objeto OAuth2 padrão.
+========= 
+
+
+
+== Informações sobre o GERID
+=========
+* É necessário ter a aplicação cliente "local.falencia:8080" cadastrada como uma aplicação no Gerid.
+* A aplicação cadastrada no GERID deve fazer a devida referência ao serviço OIDC (isso é necessário para que o JWT retorne normalmente como valor do campo "id_token" no json retornado pelo serviço:
+.. : *org.apereo.cas.services.OidcRegisteredService*
+* Segue o exemplo abaixo:
+
+[source,json]
+----
+{
+    "@class": "org.apereo.cas.services.OidcRegisteredService",
+    "serviceId": "^https?://falencia\\.poc\\.example(:\\d+)?/login/oauth2(/.*)?",
+    "name": "falencia-poc",
+    "id": 198273912,
+    "description": "Aplicacao Falencia PGFN - POC Microgateway",
+    "evaluationOrder": 1,
+    "logoutType": "BACK_CHANNEL",
+    "clientSecret": "{SSHA}TX48lSgGiB69FMFgHZpxVK72fzUj9EtIM6NbMIhxF/tjYXM=",
+    "attributeReleasePolicy": {
+        "@class": "org.apereo.cas.services.ReturnAllAttributeReleasePolicy",
+        "principalAttributesRepository": {
+            "@class": "org.apereo.cas.authentication.principal.DefaultPrincipalAttributesRepository",
+            "expiration": 2,
+            "timeUnit": "HOURS"
+        },
+        "authorizedToReleaseCredentialPassword": false,
+        "authorizedToReleaseProxyGrantingTicket": false
+    },
+    "accessStrategy": {
+        "@class": "org.apereo.cas.services.DefaultRegisteredServiceAccessStrategy",
+        "enabled": true,
+        "ssoEnabled": true,
+        "requireAllAttributes": true,
+        "caseInsensitive": false
+    },
+    "scopes": [
+        "java.util.HashSet",
+        [
+            "openid",
+            "profile",
+            "email",
+            "address",
+            "phone",
+            "gerid-lotacoes",
+            "gerid-groups",
+            "gerid-pgfn"
+        ]
+    ],
+    "clientId": "falencia-poc",
+    "bypassApprovalPrompt": true,
+    "generateRefreshToken": true,
+    "jsonFormat": true
+}
+----
+
+=========
