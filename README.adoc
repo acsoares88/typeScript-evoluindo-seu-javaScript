@@ -78,7 +78,7 @@ Para importar o pacote do DSGOV, siga os passos abaixo:
 == Projeto API
 =========
 
-*Para importar o Certificado SIDA em sua máquina, siga os passos abaixo:*
+*Para importar o Certificado SIDA, siga os passos abaixo:*
 =========
 * Realize o download do certificado de extensão ".pem" que se encontra no repositório "falencia-docs" no caminho "api/certificados-sida/";
 * Verificar em qual pasta está o java utilizado pela sua IDE (No caso eclipse e STS fica em "Windows > Preference > Java > Installed JREs");
@@ -92,7 +92,7 @@ Para importar o pacote do DSGOV, siga os passos abaixo:
 .... hom-sida-pgfn-fazenda-gov-br.pem (*Apr 20 19:55:11 GMT 2023*)
 =========
 
-*Para gerar o Base64 do arquivo .pem (Sera utilizada como variavel no UCD)*
+*Para gerar o Base64 do arquivo .pem (Será utilizado como variável no UCD)*
 =========
 .. Dentro da raíz do projeto falencia, acesse a pasta certificados (que é um projeto springboot utilizando maven) e importe ele para a sua IDE;
 .. Se olhar a estrutura de pasta, veremos 3 pastas (dev / homol / prod) que são as pastas que devem conter os certificados válidos a serem aplicados em cada ambiente;
@@ -102,7 +102,7 @@ Para importar o pacote do DSGOV, siga os passos abaixo:
 ... Reiniciar o ambiente no UCD.
 =========
 
-*Para gerar o base64 dos certificados SIDA em sua máquina, siga os passos abaixo:*
+*Para gerar o base64 dos certificados SIDA que será utilizado localmente, siga os passos abaixo:*
 =========
 * Realize o download dos certificados de extensão ".pem" e ".p12" que se encontra no repositório "falencia-docs" no caminho "api/certificados-sida/";
 * Para gerar o Base64 do arquivo .p12 (ele será usando tanto na máquina local quanto como variável no UCD):
