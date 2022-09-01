@@ -78,11 +78,11 @@ Para importar o pacote do DSGOV, siga os passos abaixo:
 == Projeto API
 =========
 
-*Para importar o Certificado SIDA, siga os passos abaixo:*
+*Para importar o certificado SIDA (servidor) que será utilizado localmente, siga os passos abaixo:*
 =========
 * Realize o download do certificado de extensão ".pem" que se encontra no repositório "falencia-docs" no caminho "api/certificados-sida/";
 * Verificar em qual pasta está o java utilizado pela sua IDE (No caso eclipse e STS fica em "Windows > Preference > Java > Installed JREs");
-* *Abrir o terminal em modo administrador*;
+* Abrir o terminal em modo *administrador*;
 * Executar o comando: keytool -import -alias  sidacacerts -file  "<Localização do certificado .pem baixado anteriormente>" -keystore "<Localização do java utilizado pela IDE>\jre\lib\security\cacerts" -storepass changeit"
 .. Exemplo do comando acima: keytool -import -alias  sidacacerts -file  "C:\Users\work\Downloads\hom-sida-pgfn-fazenda-gov-br.pem" -keystore "C:\Program Files\Java\jdk1.8.0_201\jre\lib\security\cacerts" -storepass changeit
 * Digitar "sim" (sem aspas), para a pergunta "Confiar nesse certificado";
@@ -92,9 +92,9 @@ Para importar o pacote do DSGOV, siga os passos abaixo:
 .... hom-sida-pgfn-fazenda-gov-br.pem (*Apr 20 19:55:11 GMT 2023*)
 =========
 
-*Para gerar o Base64 do arquivo .pem (Será utilizado como variável no UCD)*
+*Para gerar o Base64 do certificado SIDA (servidor) que será utilizado como variável no UCD*
 =========
-.. Dentro da raíz do projeto falencia, acesse a pasta certificados (que é um projeto springboot utilizando maven) e importe ele para a sua IDE;
+.. Dentro da raíz do projeto falencia, acesse a pasta certificados (que é um projeto springboot utilizando maven) e importe ele através da sua IDE;
 .. Se olhar a estrutura de pasta, veremos 3 pastas (dev / homol / prod) que são as pastas que devem conter os certificados válidos a serem aplicados em cada ambiente;
 ... *Caso seja alterada a nomenclatura dos certificados, é necessário alterar na aplicacao "certificados" também (classe "GeraCertificados");
 .. Executar a aplicação como "Spring Boot App" e no console irá sair o valor em base64 do certificado de cada ambiente.
@@ -102,13 +102,15 @@ Para importar o pacote do DSGOV, siga os passos abaixo:
 ... Reiniciar o ambiente no UCD.
 =========
 
-*Para gerar o base64 dos certificados SIDA que será utilizado localmente, siga os passos abaixo:*
+*Para gerar o base64 dos certificados SIDA (cliente) que será utilizado localmente, siga os passos abaixo:*
 =========
-* Realize o download dos certificados de extensão ".pem" e ".p12" que se encontra no repositório "falencia-docs" no caminho "api/certificados-sida/";
+* Realize o download do certificado de extensão ".p12" que se encontra no repositório "falencia-docs" no caminho "api/certificados-sida/";
 * Para gerar o Base64 do arquivo .p12 (ele será usando tanto na máquina local quanto como variável no UCD):
-.. Abrir um terminal na pasta onde foi feito o download dos certificados e digitar o seguinte comando: "base64 -w0 <Nome_Do_Arquivo_p12>.p12" (sem <> e "").
-.. Copiar toda a cadeia de string gerada e no arquivo aplication.yml (Localizado em src/main/resources), colar como valor do parametro: "rest.sida.client_arquivo_base64".
+.. Abrir um terminal na pasta onde foi feito o download dos certificados e digitar o seguinte comando: "base64 -w0 <Nome_Do_Arquivo_p12>.p12" (sem <> e "");
+.. Copiar toda a cadeia de string gerada e no arquivo aplication.yml (Localizado em src/main/resources), colar como valor da propriedade: "rest.sida.client_arquivo_base64";
+.. Copiar toda a cadeia de string gerada e colar como valor da propriedade: "rest.sida.client_arquivo_base64" do componente "FALENCIA-APP-SPRINGBOOT-API-CONFIG";
 =========
+
 =========
 
 = POC -Spring Cloud Gateway com Gerid 6 como IDP para o cliente e a API do Falência
